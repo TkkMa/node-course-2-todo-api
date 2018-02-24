@@ -29,6 +29,29 @@ app.get('/todos', (req, res) =>{
     })
 });
 
+// GET /todos/123434
+app.get('/todos/:id', (req, res) =>{
+    var id = req.params.id;
+    const {ObjectID} = require('mongodb');
+    // Valid id using isValid
+    if(!ObjectID.isValid(id)){
+         console.log('ID not valid');
+         return res.status(404).send();
+    }
+
+    // findById
+    Todo.findById(id).then((todo) =>{
+        if(!todo){
+            console.log('Id not found'); 
+            return res.status(404).send();
+        }
+        res.send({todo}); // equivalent to {todo: todo}
+    }, (e) =>{
+        console.log(e);
+        res.status(400).send();
+    })
+})
+
 app.listen(3000, ()=>{
     console.log('Started on port 3000');
 })
