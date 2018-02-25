@@ -9,7 +9,7 @@
     "test-watch": "nodemon --exec \"npm test\""
   },
   "engines": {   // Hiroku configuration
-    "node": "6.2.2"
+    "node": "6.11.5"
   },
   "author": "",
   "license": "ISC",
