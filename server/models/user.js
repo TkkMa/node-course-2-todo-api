@@ -30,7 +30,7 @@ var UserSchema = new mongoose.Schema({
         }
     }]
 });
-// overwrites JSON.stringify
+// overrides the response from generateAuthToken to conceal some details like Tokens
 UserSchema.methods.toJSON = function(){
     var user = this;
     var userObject = user.toObject();
@@ -47,7 +47,7 @@ UserSchema.methods.generateAuthToken = function(){
         return token;
     });
 };
-//Model methods
+//Model methods are attached to statics vs instance methods (object) attached to methods
 UserSchema.statics.findByToken = function(token){
     var User = this;
     var decoded;
