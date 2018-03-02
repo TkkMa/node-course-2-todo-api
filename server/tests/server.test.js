@@ -121,7 +121,7 @@ describe('DELETE /todos/:id', () =>{
                 }
                 // query database using findbyID
                 Todo.findById(hexId).then((todo) =>{
-                    expect(todo).toBeNull();
+                    expect(todo).toBeFalsy();
                     done();
                 }).catch((e) => done(e));
             });
@@ -214,7 +214,7 @@ describe('PATCH /todos/:id', () =>{
             .expect((res) =>{
                 expect(res.body.todo.text).toBe(text);
                 expect(res.body.todo.completed).toBe(false);
-                expect(res.body.todo.completedAt).toBeNull();
+                expect(res.body.todo.completedAt).toBeFalsy();
             })
             .end(done); 
     });
@@ -310,7 +310,7 @@ describe('POST /users/login', () =>{
                     return done(err);
                 }
                 User.findById(users[1]._id).then((user) =>{
-                    expect(user.tokens[1]).toMatchObject({
+                    expect(user.toObject().tokens[1]).toMatchObject({  //toObject() removes all mongoose stuff from user
                         access: 'auth',
                         token: res.headers['x-auth']
                     });
