@@ -48,6 +48,16 @@ UserSchema.methods.generateAuthToken = function(){
         return token;
     });
 };
+
+UserSchema.methods.removeToken = function(token){
+    var user= this;
+    
+    return user.update({
+        $pull: {           // remove items from an array
+            tokens: {token}
+        }   
+    });
+};
 //Model methods are attached to statics vs instance methods (object) attached to methods
 UserSchema.statics.findByToken = function(token){
     var User = this;
